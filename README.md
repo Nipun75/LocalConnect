@@ -46,11 +46,12 @@
 - [Getting Started](#-getting-started)
 - [Development Workflow](#-development-workflow)
 - [Team Structure](#-team-structure)
+- [Testing Strategy](#-testing-strategy)
+- [Security & Privacy](#-security--privacy)
+- [Scalability](#-scalability)
 - [Hackathon Demo](#-hackathon-demo)
 - [Roadmap](#-roadmap)
-- [Challenges & Mitigation](#-challenges--mitigation)
-- [Scalability](#-scalability)
-- [Impact](#-impact)
+- [Success Metrics](#-success-metrics)
 - [Project Status](#-project-status)
 - [License](#-license)
 
@@ -72,7 +73,7 @@ Finding a local service today is often fragmented across:
 
 At the same time, many skilled individuals such as tutors, freelancers, home chefs, technicians, photographers, designers, and trainers have limited digital visibility.
 
-Local Connect addresses both sides of this problem.
+**Local Connect addresses both sides of this problem.**
 
 > **Users describe what they need. Local Connect finds the right people nearby.**
 
@@ -108,7 +109,7 @@ This process is:
 - **Low-trust**
 - **Poorly personalized**
 
-### The other side of the problem
+### The Other Side of the Problem
 
 Local skilled individuals also face a problem.
 
@@ -124,7 +125,7 @@ A person may be excellent at:
 
 but still remain invisible online because they don't operate a formal business.
 
-### The gap
+### The Gap
 
 There is a need for a platform that connects:
 
@@ -138,22 +139,19 @@ while adding an intelligent and trustworthy matching layer.
 
 Local Connect creates a **hyperlocal trust network** where users can describe their requirements naturally and discover relevant local providers.
 
-Instead of forcing users to search through hundreds of listings, Local Connect follows:
+Instead of:
 
 ```text
-                    USER NEED
-                       │
-                       ▼
-                AI UNDERSTANDS
-                       │
-                       ▼
-                SMART MATCHING
-                       │
-                       ▼
-                TRUST EVALUATION
-                       │
-                       ▼
-                LOCAL PROVIDERS
-                       │
-                       ▼
-                    CONNECT
+Search
+  ↓
+Open multiple listings
+  ↓
+Compare manually
+  ↓
+Ask for availability
+  ↓
+Ask for price
+  ↓
+Ask friends if they're trustworthy
+  ↓
+Finally connect
