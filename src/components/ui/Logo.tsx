@@ -13,10 +13,10 @@ export function Logo({ className, variant = 'primary', withLink = true }: LogoPr
   const content = (
     <div className={cn("relative flex items-center justify-center overflow-hidden h-full w-full", className)}>
       <img 
-        src="/brand/local-connect-logo.jpeg" 
+        src="/brand/local-connect-logo-Photoroom.png" 
         alt="Local Connect Logo" 
         className={cn(
-          "object-contain w-full h-full mix-blend-multiply",
+          "object-contain w-full h-full",
           variant === 'symbol' && "scale-150 object-left" // Rough clipping for MVP if needed, though ideal is SVG
         )}
       />

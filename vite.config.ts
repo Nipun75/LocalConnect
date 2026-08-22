@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(import.meta.dirname, './src'),
+      '@ai': path.resolve(import.meta.dirname, './ai'),
     },
   },
 });

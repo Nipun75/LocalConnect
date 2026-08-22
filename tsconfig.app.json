@@ -22,9 +22,10 @@
 
     /* Paths */
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@ai/*": ["./ai/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "ai"],
   "exclude": ["src/tests"]
 }
