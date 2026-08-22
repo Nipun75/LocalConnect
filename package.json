@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:step2": "node src/tests/test-runner-step2.mjs",
+    "test:step3": "node src/tests/test-runner-step3.mjs",
+    "test:step4": "node src/tests/test-runner-step4.mjs",
+    "test:step6": "node src/tests/test-runner-step6.mjs",
+    "test:all": "node src/tests/test-runner-step2.mjs && node src/tests/test-runner-step3.mjs && node src/tests/test-runner-step4.mjs && node src/tests/test-runner-step6.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

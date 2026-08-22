@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, MapPin, ArrowRight } from 'lucide-react';
+import { Search, MapPin, ArrowRight, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { ScrollExpand } from '@/components/react-bits/ScrollExpand';
 import { ShinyButton } from '@/components/ui/shiny-button';
 import { Logo } from '@/components/ui/Logo';
 import { DynamicSupportingText } from '@/components/common/DynamicSupportingText';
+import { parseNeedWithAI } from '@/services/aiParser';
 
 import '@fontsource/instrument-serif/400.css';
 import '@fontsource/instrument-serif/400-italic.css';
@@ -26,14 +27,31 @@ const DISCOVERY_CATEGORIES = [
 
 export function Home() {
   const [needQuery, setNeedQuery] = useState('');
+  const [isParsing, setIsParsing] = useState(false);
   const navigate = useNavigate();
 
-  const handleSearch = (e?: React.FormEvent) => {
+  const handleSearch = async (e?: React.FormEvent, customQuery?: string) => {
     e?.preventDefault();
-    if (needQuery.trim()) {
-      // Mock navigation for Phase 1 as requested
-      navigate('/need/understanding');
+    const query = customQuery || needQuery;
+    if (!query.trim() || isParsing) return;
+
+    setIsParsing(true);
+    try {
+      // Step 3 & 8: Natural-language request is parsed by AI Parser into structured requirement
+      const parsedNeed = await parseNeedWithAI(query.trim());
+      
+      // Pass structured requirement into the search / results flow
+      navigate('/need/understanding', { state: { parsedNeed, query: query.trim() } });
+    } catch (err) {
+      console.warn('AI Parsing failed, continuing with raw query:', err);
+      navigate('/need/understanding', { state: { query: query.trim() } });
+    } finally {
+      setIsParsing(false);
     }
+  };
+
+  const handleCategoryClick = (categoryTitle: string) => {
+    handleSearch(undefined, `I need help with ${categoryTitle} near me`);
   };
 
   return (
@@ -74,10 +92,19 @@ export function Home() {
             <ShinyButton 
               type="submit" 
               className="h-14 text-text-btn sm:w-auto w-full"
-              disabled={!needQuery.trim()}
+              disabled={!needQuery.trim() || isParsing}
             >
-              Find Matches
-              <ArrowRight className="w-4 h-4 ml-1" />
+              {isParsing ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-1.5 animate-spin" />
+                  Finding Matches...
+                </>
+              ) : (
+                <>
+                  Find Matches
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </>
+              )}
             </ShinyButton>
           </form>
 
@@ -90,7 +117,10 @@ export function Home() {
               {EXAMPLE_NEEDS.map((example, i) => (
                 <li key={example} className="w-full">
                   <button
-                    onClick={() => setNeedQuery(example)}
+                    onClick={() => {
+                      setNeedQuery(example);
+                      handleSearch(undefined, example);
+                    }}
                     className="group w-full flex items-center gap-4 text-left p-3 rounded-md hover:bg-secondary transition-colors focus-ring"
                   >
                     <span className="text-primary font-mono text-sm opacity-60 group-hover:opacity-100 transition-opacity">
@@ -130,6 +160,7 @@ export function Home() {
             {DISCOVERY_CATEGORIES.map((category) => (
               <div 
                 key={category.id} 
+                onClick={() => handleCategoryClick(category.title)}
                 className="group relative bg-card border border-border rounded-md p-6 hover:border-primary transition-colors cursor-pointer focus-ring"
                 tabIndex={0}
               >
